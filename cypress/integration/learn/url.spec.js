@@ -34,12 +34,14 @@ describe("URL", function() {
         cy.get('.nav-link').contains('luisportelacoelho').click()
         cy.contains('My Articles').should('be.visible')
         cy.get('.ion-heart').click()
+        cy.wait(3000)
         cy.get('.nav-link').contains('Favorited Articles').click()
         cy.url().should('include', 'favorites')
-        cy.get('.ion-heart').click()
-        cy.reload()
-        cy.get('.article-preview').should('be.visible')
-        cy.go('back')
+        cy.get('.ion-heart', {timeout:10000}).click()
     })
 
+    it("Remove Post", function() {
+        cy.get('.article-preview').should('be.visible').click()
+        cy.get('.ion-trash-a').should('be.visible').click()
+    })
 })
